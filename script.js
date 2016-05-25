@@ -28,7 +28,7 @@ function update(dataList){
   
   var dataJoin = rectList.data(dataList, function(item){return item.id}); //connect the two lists
   
-  dataJoin.enter().append('rect')
+  dataJoin.enter().append('rect').attr('width',0);
   
   dataJoin //for each thing in the join set
     .on('click', function(item){
@@ -49,8 +49,9 @@ function update(dataList){
         }
       });
     })
-    .transition()
     .attr({x:10, height:40}) //all rects have same x and height
+    .transition()
+    .duration(1000)
     .attr('y', function(dataItem){ //y is a function of the item
       return dataItem.id*50; //multiply by 50
     })
@@ -67,7 +68,7 @@ function update(dataList){
     })
     
   
-  dataJoin.exit().remove();
+  dataJoin.exit().transition().attr('width',0).remove();
 }
 
 update(dataList);
